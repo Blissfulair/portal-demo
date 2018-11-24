@@ -14,7 +14,7 @@
                                     <select name="subject" id="subject" class="form-control">
                                         <option value="">Select subject</option>
                                         @foreach($teacher->items as $item)
-                                        <option value="{{ $item->subject_id }}">{{ $item->subject->subject }}</option>
+                                             <option value="{{ $item->subject_id }}">{{ $item->subject->subject }}</option>
                                         @endforeach
                                     </select>
                                     <label for="student">Student</label>

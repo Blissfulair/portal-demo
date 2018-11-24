@@ -137,7 +137,8 @@ class BackendController extends Controller
     public function edit($user_id)
     {
         $user = User::find($user_id);
-        return view('backend.user_edit', ['user' => $user]);
+        $subjects = Subject::all();
+        return view('backend.user_edit', ['user' => $user, 'subjects'=>$subjects]);
     }
     public function update(Request $request)
     {
@@ -145,6 +146,24 @@ class BackendController extends Controller
         $user->name = $request['name'];
         $user->email = $request['email'];
         $user->role = $request['role'];
+        $teacher = Teacher::where('user_id', $user->id)->first();
+        $subjects = $request['subject'];
+        if($subjects){
+            foreach($subjects as $subject){
+                $update = false;
+                $item = TeacherItem::where(['subject_id'=>$subject, 'teacher_id'=>$teacher->id])->first();
+                if($item){
+                    $update = true;
+                }else
+                $item = new TeacherItem();
+                $item->subject_id = $subject;
+                $item->teacher_id = $teacher->id;
+                if($update)
+                $item->update();
+                else
+                $item->save();
+            }
+        }
         if($request['npassword']){
             $user->password = bcrypt($request['npassword']);
         }

@@ -25,6 +25,17 @@
                                         <option @if($user->role == Role::TEACHER) selected @endif value="1">Teacher</option>
                                     </select>
                                 </div>
+                                @if($user->role == Role::TEACHER)
+                                <div class="form-group {{ $errors->has('subject') ? 'has-error' : ''}}">
+                                    <label for="subject">subject</label>
+                                    <select name="subject[]" class="form-control" id="subject" multiple="true">
+                                    <option value="">Select</option>
+                                        @foreach($subjects as $subject)
+                                        <option value="{{ $subject->id }}">{{ $subject->subject }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @endif
                                 <div class="form-group {{ $errors->has('password') ? 'has-error' : ''}}">
                                     <label for="password">Password</label>
                                     <input type="password" name="npassword" id="password" class="form-control">
