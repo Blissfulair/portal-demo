@@ -17,6 +17,8 @@ class CreateResultItemsTable extends Migration
             $table->increments('id');
             $table->integer('result_id');
             $table->integer('subject_id');
+            $table->integer('calendar_id');
+            $table->integer('class_id');
             $table->float('t1');
             $table->float('t2');
             $table->float('score'); 

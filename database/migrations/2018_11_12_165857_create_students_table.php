@@ -25,6 +25,7 @@ class CreateStudentsTable extends Migration
             $table->string('genotype')->nullable();
             $table->string('blood_group')->nullable();
             $table->integer('user_id');
+            $table->integer('deleted')->default(0);
             $table->timestamps();
         });
     }

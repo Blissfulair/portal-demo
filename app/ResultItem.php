@@ -14,4 +14,8 @@ class ResultItem extends Model
     {
         return $this->hasMany('App\Subject', 'id');
     }
+    public function teacher()
+    {
+        return $this->belongsTo('App\Teacher');
+    }
 }

@@ -22,11 +22,11 @@
             @foreach($results as $result)
             <tr>
                 <td><a href="">{{ $result->student->name }}</a></td>
-                <td><a href="">SS 3</a></td>
-                <td><a href="">{{ $result->term == 1 ?  'First' : 'Second' }}</a></td>
+                <td><a href="">{{ Classes::class_name($result->class_id) }}</a></td>
+                <td><a href="">{{ Calendar::term($result->term) }}</a></td>
                 <td><a href="">{{ $result->session }}</a></td>
                 <td><a href="">{{ $result->created_at }}</a></td>
-                <td class="text-center"><a href="{{ route('result', ['result_id'=>$result->id, 'term_id'=>$result->term]) }}"><i class="fa fa-eye"></i></a></td>
+                <td class="text-center"><a href="{{ route('result', ['result_id'=>$result->id, 'term_id'=>$result->term, 'class_id'=>$result->class_id]) }}"><i class="fa fa-eye"></i></a></td>
             </tr>
             @endforeach
         </table>

@@ -7,19 +7,22 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 use App\Setting;
 use App\User;
 use App\Subject;
 use App\Student;
-use App\Calander;
+use App\Calendar;
 use App\Role;
 use App\Teacher;
 use App\TeacherItem;
 use App\Classes;
+use App\Result;
+use App\ResultItem;
 
 class BackendController extends Controller
 {
-    protected const STUDENT = 0, TEACHER = 1, NOT_DELETED = 0, DELETED = 1;
+    protected const STUDENT = 0, TEACHER = 1, NOT_DELETED = 0, DELETED = 1, ADMIN_UNAPPROVED = 0, ADMIN_APPROVED = 1, ADMIN_DISAPPROVED = -1;
     public function index()
     {
         if(Role::isAdmin()){
@@ -107,14 +110,7 @@ class BackendController extends Controller
         $student = new Teacher();
       }
       $user = new User();
-      if($request['type'] == self::TEACHER){
-        $user->role = self::TEACHER;
-        $teacher_item = new TeacherItem();
-        $teacher_item->teacher_id = Teacher::orderBy('id', 'desc')->first()->id;
-        $teacher_item->subject_id = $request['subject'];
-        $teacher_item->save();
-      }
-      $user->name = $student_name;
+            $user->name = $student_name;
       $user->email = $student_email;
       $user->password = $student_password;
       $user->save();
@@ -122,6 +118,13 @@ class BackendController extends Controller
       $student->email = $request['email'];
       $student->user_id = User::orderBy('id', 'desc')->first()->id;
       $student->save();
+      if($request['type'] == self::TEACHER){
+        $user->role = self::TEACHER;
+        $teacher_item = new TeacherItem();
+        $teacher_item->teacher_id = Teacher::orderBy('id', 'desc')->first()->id;
+        $teacher_item->subject_id = $request['subject'];
+        $teacher_item->save();
+      }
       return redirect()->route('admin');
     }
     public function student()
@@ -174,6 +177,14 @@ class BackendController extends Controller
         $user = User::find($user_id);
         $user->deleted = self::DELETED;
         $user->update();
+        if($user->student){
+            $user->student->deleted = self::DELETED;
+            $user->student->update();
+        }
+        elseif($user->teacher){
+            $user->teacher->deleted = self::DELETED;
+            $user->teacher->update();
+        }
         return back()->with('success', 'Record Deleted');
     }
     public function subject_form()
@@ -201,7 +212,7 @@ class BackendController extends Controller
                 'term_start' => 'required',
                 'term_end' => 'required'
             ]);
-            $calander = new Calander();
+            $calander = new Calendar();
             $calander->session = $request['session'];
             $calander->term = $request['term'];
             $calander->term_start = $request['term_start'];
@@ -212,7 +223,7 @@ class BackendController extends Controller
     }
     public function all_calander()
     {
-        $slots = Calander::orderBy('created_at', 'desc')->get();
+        $slots = Calendar::orderBy('created_at', 'desc')->get();
         return view('backend.calander_list', ['slots'=>$slots]);
     }
     public function class_display()
@@ -245,5 +256,41 @@ class BackendController extends Controller
             $profile = Student::where('user_id', $user->id)->first();
         }else $profile = false;
         return view('backend.user_profile', ['user'=>$user, 'profile'=>$profile]);
+    }
+    public function results()
+    {
+        $classes = Classes::all();
+        $results = Result::orderBy('class_id','desc')->orderBy('session', 'desc')->orderBy('term', 'desc')->paginate(10);
+        return view('backend.results', ['results'=>$results, 'classes'=>$classes]);
+    }
+    public function approve_results($result_id)
+    {
+        $result = Result::find($result_id);
+        $result->status = self::ADMIN_APPROVED;
+        $result->update();
+        return back(); 
+    }
+    public function search_route($class_id)
+    {
+        $classes = Classes::all();
+        $results = Result::where(['term'=> Calendar::current_term()->id, 'class_id'=>$class_id])->orderBy('class_id','desc')->orderBy('session', 'desc')->orderBy('term', 'desc')->paginate(10);
+        return view('backend.results', ['results'=>$results, 'classes'=>$classes]);
+    }
+    public function make_best_students()
+    {
+        $positions = ResultItem::where(['calendar_id'=> Calendar::current_term()->id])->groupBy('result_id', 'class_id')->select('result_id','class_id', DB::raw('sum(score) + sum(t1) + sum(t2) as score'))->orderBy('score', 'desc')->get();
+        dd($positions);
+        foreach($positions as $key=>$position)
+        {
+         dd($position);
+           // dd($position->result->student->name);
+        }
+        // $pos = array();
+        // foreach($positions as $position){
+        //     $pos[$position->result_id] = $position->t1 + $position->t2 + $position->score;
+        // }
+        // $positions = $pos;
+        // arsort($positions);
+        dd($positions);
     }
 }

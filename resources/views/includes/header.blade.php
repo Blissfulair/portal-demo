@@ -4,7 +4,9 @@
 			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-					<a class="navbar-brand" href="{{ route('index') }}"><img src="{{ route('photo', ['filename' => \App\Setting::find(1)->filename]) }}" alt="logo"></a>
+					@if($setting = \App\Setting::find(1))
+					<a class="navbar-brand" href="{{ route('index') }}"><img src="{{ route('photo', ['filename' => $setting->filename]) }}" alt="logo"></a>
+					@endif
 				</div>
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
@@ -61,7 +63,7 @@
 							<a href="blog.html" data-toggle="dropdown" role="button" aria-expanded="false"><span>Blog</span></a>
 							<ul class="dropdown-menu dropdownhover-bottom" role="menu">
 								@if(Auth::user())
-									@if(Auth::user()->role == 1)
+									@if(Auth::user()->role == Role::ADMIN)
 									<li><a href="">Create Blog</a></li>
 									@endif
 								@endif
@@ -88,6 +90,15 @@
 								<span>Academic Calander</span></a>
 							<ul class="dropdown-menu dropdownhover-bottom" role="menu">
 								<li><a href="{{ route('calander') }}">New Term</a></li>
+								<li><a href="{{ route('all_calander') }}">Terms and Sessions</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+								<span>Students Results</span></a>
+							<ul class="dropdown-menu dropdownhover-bottom" role="menu">
+								<li><a href="{{ route('admin.results') }}">All Results</a></li>
+								<li><a href="{{ route('all_calander') }}">Terms and Sessions</a></li>
 							</ul>
 						</li>
 						@elseif(Role::isTeacher())

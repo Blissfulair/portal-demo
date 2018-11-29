@@ -53,11 +53,11 @@
                             </tr>
                             <tr>
                                 <td class="text-left">Class</td>
-                                <td class="text-left">SS 2</td>
+                                <td class="text-left">{{ Classes::class_name($profile->class_id) }}</td>
                             </tr>
                             <tr>
                                 <td class="text-left">Term</td>
-                                <td class="text-left">{{ $term[$profile->term]}}</td>
+                                <td class="text-left">{{ Calendar::term($profile->term) }}</td>
                             </tr>
                             <tr>
                                 <td class="text-left">Totol Score</td>
@@ -137,7 +137,7 @@
                                         Distinction
                                     @endif
                                 </td>
-                                <td class="text-left">J.p</td>
+                                <td class="text-left">{{ $item->teacher->name }}</td>
                             </tr>
                             @endforeach
                             @endif

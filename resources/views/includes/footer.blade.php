@@ -4,7 +4,9 @@
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<!-- f-weghit -->
 					<div class="f-weghit">
-						<img src="{{ route('photo', ['filename' => \App\Setting::find(1)->filename]) }}" alt="logo">
+						@if($setting = \App\Setting::find(1))
+						<img src="{{ route('photo', ['filename' => $setting->filename]) }}" alt="logo">
+						@endif
 						<p>Outstock is a premium Templates theme with advanced admin module. It’s extremely customizable, easy to use and fully responsive and retina ready.</p>
 						<ul>
 							<li><i class="icon-location-pin icons" aria-hidden="true"></i> <strong>Add:</strong> 1234 Heaven Stress, Beverly Hill, Melbourne, USA.</li>

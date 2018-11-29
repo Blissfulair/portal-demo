@@ -17,10 +17,11 @@ class CreateTeachersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('sex');
-            $table->string('dob');
-            $table->string('phone');
+            $table->string('sex')->nullable();
+            $table->string('dob')->nullable();
+            $table->string('phone')->nullable();
             $table->integer('user_id');
+            $table->integer('deleted')->default(0);
             $table->timestamps();
         });
     }

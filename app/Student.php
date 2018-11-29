@@ -18,4 +18,8 @@ class Student extends Model
     {
         return $this->hasMany('App\Result');
     }
+    public static function current_class($student_id)
+    {
+        return self::find($student_id)->class;
+    } 
 }

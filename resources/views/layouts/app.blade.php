@@ -41,11 +41,12 @@
     <script src="{{ URL::to('/js/bootstrap-dropdownhover.min.js') }}"></script>
 	<!-- Plugin JavaScript -->
 	<script src="{{ URL::to('/js/jquery.easing.min.js') }}"></script>
-	<!-- <script src="{{ asset('/js/wow.min.js') }}"></script> -->
+	<script src="{{ URL::to('/js/wow.min.js') }}"></script>
 	<!--  Custom Theme JavaScript  -->
 	<script src="{{ URL::to('/js/custom.js') }}"></script>
 	<!-- owl carousel -->
 	<script src="{{ URL::to('/owl-carousel/owl.carousel.js') }}"></script>
+	<script src="{{ URL::to('/js/main.js') }}"></script>
 
 </body>
 </html>

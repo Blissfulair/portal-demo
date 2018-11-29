@@ -10,4 +10,12 @@ class Teacher extends Model
     {
         return $this->hasMany('App\TeacherItem');
     }
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+    public function results()
+    {
+        return $this->hasMany('App\ResultItem');
+    }
 }

@@ -103,7 +103,15 @@ Route::group(['middleware'=>['web','auth']], function(){
         'uses' => 'FrontendController@results',
         'as' => 'results'
     ]);
-    Route::get('/result/{result_id}/{term_id}', [
+    Route::get('/admin.results', [
+        'uses' => 'BackendController@results',
+        'as' => 'admin.results'
+    ]);
+    Route::get('/approve_results/{result_id}', [
+        'uses' => 'BackendController@approve_results',
+        'as' => 'approve_results'
+    ]);
+    Route::get('/result/{result_id}/{calendar_id}/{class_id}', [
         'uses' => 'FrontendController@result',
         'as' => 'result'
     ]);
@@ -146,5 +154,13 @@ Route::group(['middleware'=>['web','auth']], function(){
     Route::get('/user_profile/{user_id}', [
         'uses' => 'BackendController@user_profile',
         'as' => 'user_profile'
+    ]);
+    Route::get('/best_students', [
+        'uses' => 'BackendController@make_best_students',
+        'as' => 'best_students'
+    ]);
+    Route::get('/search_route/{class_id}', [
+        'uses' => 'BackendController@search_route',
+        'as' => 'search_route'
     ]);
 });

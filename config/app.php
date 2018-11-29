@@ -222,6 +222,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Role' => App\Role::class,
+        'Classes' => App\Classes::class,
+        'Calendar' => App\Calendar::class,
 
     ],
 

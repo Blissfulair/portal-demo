@@ -16,9 +16,10 @@ class CreateResultsTable extends Migration
         Schema::create('results', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('student_id');
-            $table->integer('user_id');
+            $table->integer('class_id');
             $table->string('session');
             $table->integer('term');   
+            $table->integer('status')->default(0);   
             $table->timestamps();
         });
     }

@@ -4,13 +4,6 @@
     <section class="container mt-20">
         <div class="row">
             <div class="col-md-12">
-                <div class="col-md-10 col-md-offset-1">
-                @include('includes.messages')
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
                 <label for="passport">
                 <div class="col-md-2 col-md-offset-10 admin-logo">
                     @if($profile)

@@ -15,10 +15,14 @@ use App\Setting;
 use App\Role;
 use App\Teacher;
 use App\Classes;
-use App\Calander;
+use App\Calendar;
 
 class FrontendController extends Controller
 {
+    protected const NOT_DELETED = 0,
+                    ADMIN_DISAPPROVED = -1,
+                    ADMIN_UNAPPROVED = 0,
+                    ADMIN_APPROVED = 1;
     public function biodata(Request $request)
     {
         $user = Auth::user();
@@ -98,17 +102,12 @@ class FrontendController extends Controller
     }
     public function results()
     {
-        $results = Result::where('student_id', Auth::user()->student->id)->get();
+        $results = Result::where(['student_id'=>Auth::user()->student->id, 'status'=>self::ADMIN_APPROVED])->get();
         return view('frontend.results', ['results'=>$results]);
     }
-    public function result($result_id, $term_id)
+    public function result($result_id, $calendar_id, $class_id)
     {
-        $term = array(
-            1=>'First Term',
-            2=>'Second Term', 
-            3=>'Third Term'
-        );
-        $positions = ResultItem::where('term_id', $term_id)->groupBy('result_id')->select('result_id', DB::raw('sum(score) as score, sum(t1) as t1, sum(t2) as t2'))->get();
+        $positions = ResultItem::where(['calendar_id'=>$calendar_id, 'class_id'=>$class_id])->groupBy('result_id')->select('result_id', DB::raw('sum(score) as score, sum(t1) as t1, sum(t2) as t2'))->get();
         $pos = array();
         foreach($positions as $position){
             $pos[$position->result_id] = $position->t1 + $position->t2 + $position->score;
@@ -117,12 +116,12 @@ class FrontendController extends Controller
         arsort($positions);
         $profile = Result::find($result_id);
         $setting = Setting::find(1);
-        return view('frontend.result', ['term'=>$term, 'setting'=>$setting, 'profile'=>$profile, 'positions'=>$positions]);
+        return view('frontend.result', ['setting'=>$setting, 'profile'=>$profile, 'positions'=>$positions]);
     }
     public function dashboard()
     {
         $classes = Classes::all();
-        $students = Student::all();
+        $students = Student::where('deleted', self::NOT_DELETED)->get();
         $teacher = Teacher::where('user_id', Auth::user()->id)->first();
         return view('frontend.dashboard', ['classes'=> $classes, 'students'=>$students, 'teacher'=>$teacher]);
     }
@@ -135,25 +134,34 @@ class FrontendController extends Controller
             'exam' => 'required'
         ]);
         $update = true;
-        $current = Calander::current_term();
-        $result = Result::where('student_id', $request['student'])->where('session', $current->session)->where('term', $current->term)->first();
+        $current = Calendar::current_term();
+        $result = Result::where('student_id', $request['student'])->where('session', $current->session)->where('term', $current->id)->first();
         if(!$result){
             $update = false;
             $result = new Result();
         }
         $result->student_id = $request['student'];
         $result->session = $current->session;
-        $result->term = $current->term;
+        $result->class_id = Student::current_class($request['student']);
+        $result->term = $current->id;
         if($update){ $result->update();}
         else{ $result->save();}
         if($result){
-            if(!$result->items()->where('subject_id', $request['subject'])->first()){
+            if(!$result->items()->where(
+                [
+                    'subject_id'=>$request['subject'],
+                    'result_id'=>$result->id
+                ]
+            )->first()){
                 $result_item = new ResultItem();
                 $result_item->subject_id = $request['subject'];
                 $result_item->result_id = $result->id;
+                $result_item->teacher_id = Auth::user()->teacher->id;
                 $result_item->t1 = $request['first_test'];
                 $result_item->t2 = $request['second_test'];
                 $result_item->score = $request['exam'];
+                $result_item->calendar_id = $current->id;
+                $result_item->class_id = Student::find($request['student'])->class;
                 $result_item->save();
                 return back()->with('success', 'Record Saved Successfully');
             }else{
