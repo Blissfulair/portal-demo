@@ -11,9 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('index');
+Route::get('/', [
+    'uses' => 'BackendController@home',
+    'as' => 'index'
+]);
 Route::get('/photo/{filename}', [
     'uses' => 'BackendController@photo',
     'as' => 'photo'
@@ -155,12 +156,20 @@ Route::group(['middleware'=>['web','auth']], function(){
         'uses' => 'BackendController@user_profile',
         'as' => 'user_profile'
     ]);
-    Route::get('/best_students', [
+    Route::get('/best_students/{class_id}', [
         'uses' => 'BackendController@make_best_students',
         'as' => 'best_students'
     ]);
     Route::get('/search_route/{class_id}', [
         'uses' => 'BackendController@search_route',
         'as' => 'search_route'
+    ]);
+    Route::get('/users', [
+        'uses' => 'BackendController@users',
+        'as'    => 'users'
+    ]); 
+    Route::get('/attendance_register/{class_id}', [
+        'uses' => 'FrontendController@attendance_register',
+        'as' => 'attendance_register'
     ]);
 });

@@ -43,14 +43,16 @@
             @endforeach
         </table>
         <br>
-        <a class="btn btn-success pull-right" href="{{ route('best_students') }}">Publish Term Results</a>
+        <?php $url = explode('/', Request::getPathInfo()); ?>
+        @if($url[1] == 'search_route')
+        <a class="btn btn-success pull-right" href="{{ route('best_students', ['class_id'=>$url[2]]) }}">Publish Term Results</a>
         <br>
+        @endif
         @endif
         {{ $results->links() }}
 
     </div>
 </div>
-<?php $class_num  = 0; ?>
 <script>
 var searchbtn = document.querySelector('#resultSearch');
 if(searchbtn != null){
@@ -66,8 +68,7 @@ if(searchbtn != null){
     //     }).done(function(response){
     //         console.log(response)
     //     })
-    "<?php $class_num ?>" = classNum;
-    var searchRoute = '{{ route('search_route', ['class_id'=>$class_num]) }}';
+    var searchRoute = '/search_route/' + classNum;
         window.location.href = searchRoute;
     });
 }

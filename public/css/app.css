@@ -192,3 +192,13 @@ footer {
   border: 1px solid #38c172;
 }
 
+.accordion-toggle {
+  color: #38c172 !important;
+  font-size: 18px;
+  text-decoration: none !important;
+}
+
+.background {
+  background: #222;
+}
+

@@ -77,166 +77,32 @@
 				<p>This is the staff hideout</p>
 			</div>
 			<div class="row animated wow zoomIn" data-wow-duration=".5s" data-wow-delay=".2s">
-				<div class="col-md-3">
-					<!-- .pro-text -->
-					<div class="pro-text">
-						<!-- .pro-img -->
-						<div class="pro-img"> <img src="assets/images/Products/21.jpg" alt="2" />
-							<!-- .hover-img -->
-							<div class="hover-img">
-								<ul>
-									<li><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-									<li><a href="#"><i class="fa fa-sliders" aria-hidden="true"></i></a></li>
-									<li><a href="#" data-toggle="modal" data-target="#quickModal" data-whatever="@mdo"><i class="fa fa-search" aria-hidden="true"></i></a></li>
-								</ul>
+				@if($team_members)
+					@foreach($team_members as $team_member)
+						<div class="col-md-3">
+							<!-- .pro-text -->
+							<div class="pro-text">
+								<!-- .pro-img -->
+								@if($team_member)
+								<div class="pro-img"> <img src="{{ route('photo', ['filename' => $team_member->teacher->filename]) }}" alt="2" />
+								@endif
+									<!-- .hover-img -->
+									<!-- <div class="hover-img">
+										<ul>
+											<li><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-sliders" aria-hidden="true"></i></a></li>
+											<li><a href="#" data-toggle="modal" data-target="#quickModal" data-whatever="@mdo"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+										</ul>
+									</div> -->
+									<!-- /.hover-img -->
+								</div>
+								<!-- /.pro-img --><a href="#">{{ $team_member->name }}</a> <a href="#" class="addtocart">{{ $team_member->teacher->phone }}</a>
+								<div class="price">{{ Role::team_member($team_member->role) }}</div>
 							</div>
-							<!-- /.hover-img -->
+							<!-- /.pro-text -->
 						</div>
-						<!-- /.pro-img --><a href="#">Mr Lucky</a> <a href="#" class="addtocart">07089765644</a>
-						<div class="price">The Propietor</div>
-					</div>
-					<!-- /.pro-text -->
-				</div>
-				<div class="col-md-3">
-					<!-- .pro-text -->
-					<div class="pro-text">
-						<!-- .pro-img -->
-						<div class="pro-img"> <img src="assets/images/Products/21.jpg" alt="2" />
-							<!-- .hover-img -->
-							<div class="hover-img">
-								<ul>
-									<li><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-									<li><a href="#"><i class="fa fa-sliders" aria-hidden="true"></i></a></li>
-									<li><a href="#" data-toggle="modal" data-target="#quickModal" data-whatever="@mdo"><i class="fa fa-search" aria-hidden="true"></i></a></li>
-								</ul>
-							</div>
-							<!-- /.hover-img -->
-						</div>
-						<!-- /.pro-img --><a href="#">Mr Lucky</a> <a href="#" class="addtocart">07089765644</a>
-						<div class="price">The Propietor</div>
-					</div>
-					<!-- /.pro-text -->
-				</div>
-				<div class="col-md-3">
-					<!-- .pro-text -->
-					<div class="pro-text">
-						<!-- .pro-img -->
-						<div class="pro-img"> <img src="assets/images/Products/21.jpg" alt="2" />
-							<!-- .hover-img -->
-							<div class="hover-img">
-								<ul>
-									<li><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-									<li><a href="#"><i class="fa fa-sliders" aria-hidden="true"></i></a></li>
-									<li><a href="#" data-toggle="modal" data-target="#quickModal" data-whatever="@mdo"><i class="fa fa-search" aria-hidden="true"></i></a></li>
-								</ul>
-							</div>
-							<!-- /.hover-img -->
-						</div>
-						<!-- /.pro-img --><a href="#">Mr Lucky</a> <a href="#" class="addtocart">07089765644</a>
-						<div class="price">The Propietor</div>
-					</div>
-					<!-- /.pro-text -->
-				</div>
-				<div class="col-md-3">
-					<!-- .pro-text -->
-					<div class="pro-text">
-						<!-- .pro-img -->
-						<div class="pro-img"> <img src="assets/images/Products/21.jpg" alt="2" />
-							<!-- .hover-img -->
-							<div class="hover-img">
-								<ul>
-									<li><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-									<li><a href="#"><i class="fa fa-sliders" aria-hidden="true"></i></a></li>
-									<li><a href="#" data-toggle="modal" data-target="#quickModal" data-whatever="@mdo"><i class="fa fa-search" aria-hidden="true"></i></a></li>
-								</ul>
-							</div>
-							<!-- /.hover-img -->
-						</div>
-						<!-- /.pro-img --><a href="#">Mr Lucky</a> <a href="#" class="addtocart">07089765644</a>
-						<div class="price">The Propietor</div>
-					</div>
-					<!-- /.pro-text -->
-				</div>
-				<div class="col-md-3">
-					<!-- .pro-text -->
-					<div class="pro-text">
-						<!-- .pro-img -->
-						<div class="pro-img"> <img src="assets/images/Products/21.jpg" alt="2" />
-							<!-- .hover-img -->
-							<div class="hover-img">
-								<ul>
-									<li><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-									<li><a href="#"><i class="fa fa-sliders" aria-hidden="true"></i></a></li>
-									<li><a href="#" data-toggle="modal" data-target="#quickModal" data-whatever="@mdo"><i class="fa fa-search" aria-hidden="true"></i></a></li>
-								</ul>
-							</div>
-							<!-- /.hover-img -->
-						</div>
-						<!-- /.pro-img --><a href="#">Mr Lucky</a> <a href="#" class="addtocart">07089765644</a>
-						<div class="price">The Propietor</div>
-					</div>
-					<!-- /.pro-text -->
-				</div>
-				<div class="col-md-3">
-					<!-- .pro-text -->
-					<div class="pro-text">
-						<!-- .pro-img -->
-						<div class="pro-img"> <img src="assets/images/Products/21.jpg" alt="2" />
-							<!-- .hover-img -->
-							<div class="hover-img">
-								<ul>
-									<li><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-									<li><a href="#"><i class="fa fa-sliders" aria-hidden="true"></i></a></li>
-									<li><a href="#" data-toggle="modal" data-target="#quickModal" data-whatever="@mdo"><i class="fa fa-search" aria-hidden="true"></i></a></li>
-								</ul>
-							</div>
-							<!-- /.hover-img -->
-						</div>
-						<!-- /.pro-img --><a href="#">Mr Lucky</a> <a href="#" class="addtocart">07089765644</a>
-						<div class="price">The Propietor</div>
-					</div>
-					<!-- /.pro-text -->
-				</div>
-				<div class="col-md-3">
-					<!-- .pro-text -->
-					<div class="pro-text">
-						<!-- .pro-img -->
-						<div class="pro-img"> <img src="assets/images/Products/21.jpg" alt="2" />
-							<!-- .hover-img -->
-							<div class="hover-img">
-								<ul>
-									<li><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-									<li><a href="#"><i class="fa fa-sliders" aria-hidden="true"></i></a></li>
-									<li><a href="#" data-toggle="modal" data-target="#quickModal" data-whatever="@mdo"><i class="fa fa-search" aria-hidden="true"></i></a></li>
-								</ul>
-							</div>
-							<!-- /.hover-img -->
-						</div>
-						<!-- /.pro-img --><a href="#">Mr Lucky</a> <a href="#" class="addtocart">07089765644</a>
-						<div class="price">The Propietor</div>
-					</div>
-					<!-- /.pro-text -->
-				</div>
-				<div class="col-md-3">
-					<!-- .pro-text -->
-					<div class="pro-text">
-						<!-- .pro-img -->
-						<div class="pro-img"> <img src="assets/images/Products/21.jpg" alt="2" />
-							<!-- .hover-img -->
-							<div class="hover-img">
-								<ul>
-									<li><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-									<li><a href="#"><i class="fa fa-sliders" aria-hidden="true"></i></a></li>
-									<li><a href="#" data-toggle="modal" data-target="#quickModal" data-whatever="@mdo"><i class="fa fa-search" aria-hidden="true"></i></a></li>
-								</ul>
-							</div>
-							<!-- /.hover-img -->
-						</div>
-						<!-- /.pro-img --><a href="#">Mr Lucky</a> <a href="#" class="addtocart">07089765644</a>
-						<div class="price">The Propietor</div>
-					</div>
-					<!-- /.pro-text -->
-				</div>
+					@endforeach
+				@endif
 							<!-- <div class="col-md-12 text-center">
 					<a href="#" class="lbtn">load more</a>
 				</div> -->
@@ -283,101 +149,29 @@
 				<p>Mirum est notare quam littera gothica quam nunc putamus parum claram!</p>
 			</div>
 			<div class="row animated wow zoomIn" data-wow-duration=".5s" data-wow-delay=".2s">
+				@if($best_students)
+				@foreach($best_students as $best_student)
 				<div class="col-5">
 					<!-- .pro-text -->
 					<div class="pro-text">
 						<!-- .pro-img -->
-						<div class="pro-img"> <img src="assets/images/Products/21.jpg" alt="2" />
+						<div class="pro-img"> <img src="{{ route('photo', ['filename' => $best_student->filename]) }}" alt="{{ $best_student->name }}" />
 							<!-- .hover-img -->
 							<div class="hover-img">
 								<ul>
-									<li>Adewole Williams</li>
-									<li>JSS 1</li>
+									<li>{{ $best_student->name }}</li>
+									<li>{{ Classes::class_name($best_student->class_id) }}</li>
 								</ul>
 							</div>
 							<!-- /.hover-img -->
 						</div>
-						<!-- /.pro-img --><a href="#">Adewole Williams</a>
-						<div class="price">JSS 1</div>
+						<!-- /.pro-img --><a href="#">{{ $best_student->name }}</a>
+						<div class="price">{{ Classes::class_name($best_student->class_id) }}</div>
 					</div>
 					<!-- /.pro-text -->
 				</div>
-				<div class="col-5">
-					<!-- .pro-text -->
-					<div class="pro-text">
-						<!-- .pro-img -->
-						<div class="pro-img"> <img src="assets/images/Products/21.jpg" alt="2" />
-							<!-- .hover-img -->
-							<div class="hover-img">
-								<ul>
-									<li>Adewole Williams</li>
-									<li>JSS 2</li>
-								</ul>
-							</div>
-							<!-- /.hover-img -->
-						</div>
-						<!-- /.pro-img --><a href="#">Adewole Williams</a>
-						<div class="price">JSS 2</div>
-					</div>
-					<!-- /.pro-text -->
-				</div>
-				<div class="col-5">
-					<!-- .pro-text -->
-					<div class="pro-text">
-						<!-- .pro-img -->
-						<div class="pro-img"> <img src="assets/images/Products/21.jpg" alt="2" />
-							<!-- .hover-img -->
-							<div class="hover-img">
-								<ul>
-									<li>Adewole Williams</li>
-									<li>JSS 3</li>
-								</ul>
-							</div>
-							<!-- /.hover-img -->
-						</div>
-						<!-- /.pro-img --><a href="#">Adewole Williams</a>
-						<div class="price">JSS 3</div>
-					</div>
-					<!-- /.pro-text -->
-				</div>
-				<div class="col-5">
-					<!-- .pro-text -->
-					<div class="pro-text">
-						<!-- .pro-img -->
-						<div class="pro-img"> <img src="assets/images/Products/21.jpg" alt="2" />
-							<!-- .hover-img -->
-							<div class="hover-img">
-								<ul>
-									<li>Adewole Williams</li>
-									<li>SS 1</li>
-								</ul>
-							</div>
-							<!-- /.hover-img -->
-						</div>
-						<!-- /.pro-img --><a href="#">Adewole Williams</a>
-						<div class="price">SS 1</div>
-					</div>
-					<!-- /.pro-text -->
-				</div>
-				<div class="col-5">
-					<!-- .pro-text -->
-					<div class="pro-text">
-						<!-- .pro-img -->
-						<div class="pro-img"> <img src="assets/images/Products/21.jpg" alt="2" />
-							<!-- .hover-img -->
-							<div class="hover-img">
-								<ul>
-									<li>Adewole Williams</li>
-									<li>SS 2</li>
-								</ul>
-							</div>
-							<!-- /.hover-img -->
-						</div>
-						<!-- /.pro-img --><a href="#">Adewole Williams</a>
-						<div class="price">SS 2</div>
-					</div>
-					<!-- /.pro-text -->
-				</div>
+				@endforeach
+				@endif
 			</div>
 		</div>
 		<!-- /.new-arrivals -->

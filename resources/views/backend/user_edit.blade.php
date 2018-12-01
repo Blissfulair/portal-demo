@@ -23,9 +23,11 @@
                                     <option value="">Select</option>
                                         <option @if($user->role == Role::STUDENT) selected @endif value="0">Student</option>
                                         <option @if($user->role == Role::TEACHER) selected @endif value="1">Teacher</option>
+                                        <option @if($user->role == Role::HOD) selected @endif value="2">Head of Department</option>
+                                        <option @if($user->role == Role::PRINCIPAL) selected @endif value="3">Head of School</option>
                                     </select>
                                 </div>
-                                @if($user->role == Role::TEACHER)
+                                @if($user->role == Role::TEACHER || $user->role == Role::HOD)
                                 <div class="form-group {{ $errors->has('subject') ? 'has-error' : ''}}">
                                     <label for="subject">subject</label>
                                     <select name="subject[]" class="form-control" id="subject" multiple="true">

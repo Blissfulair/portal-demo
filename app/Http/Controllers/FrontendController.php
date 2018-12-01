@@ -56,13 +56,21 @@ class FrontendController extends Controller
                 $student->save();
             }
         }
-        if(Role::isTeacher()){
+        if(Role::isTeacher() || Role::isHOD()){
             $update = false;
             $teacher = Teacher::where('user_id', $user->id)->first();
             if($teacher){
                 $update = true;
             }else{
                 $teacher = new Teacher();
+            }
+            $file = $request->file('passport');
+            if($file){
+                $name = $user->id.'_'.date('Y_m_d_His', time()).'_'.$file->getClientOriginalName();
+                $teacher->filename = $name;
+                Storage::disk('local')->put($name, File::get($file));
+            }elseif($request['filename']){
+                $teacher->filename = $request['filename'];
             }
             $teacher->name = $request['name'];
             $teacher->sex = $request['sex'];
@@ -168,5 +176,10 @@ class FrontendController extends Controller
                 return back()->with('error', 'Record already exists');
             }
         }
+    }
+    public function attendance_register($class_id)
+    {
+        $students = Student::where('class', $class_id)->get();
+        return view('frontend.attendance', compact('students'));
     }
 }

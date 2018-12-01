@@ -2,8 +2,21 @@
 
 @section('content')
     <div class="container mt-20">
-        <form action="{{ route('biodata') }}" method="post">
+        <div class="row">
+            <div class="col-md-12">
+                <label for="passport">
+                <div class="col-md-2 col-md-offset-10 admin-logo">
+                    @if($profile)
+                   <img src="{{ route('photo', ['filename' => $profile->filename]) }}" alt="">
+                   @endif
+                </div>
+                </label>
+            </div>
+        </div>
+        <form action="{{ route('biodata') }}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="_token" value="{{ Session::token() }}">
+            <input type="hidden" name="filename" value="{{ $profile? $profile->filename : ''}}">
+            <input type="file" name="passport" class="hide" id="passport">
             <div class="form-group row">
                 <div class="col-md-12">
                     <div class="col-md-5 col-md-offset-1">

@@ -80,7 +80,7 @@
 								<li><a href="{{ route('admin') }}">Admin</a></li>
 								<li><a href="{{ route('register_student.new') }}">Register New Student</a></li>
 								<li><a href="{{ route('register_teacher.new') }}">Register New Teacher</a></li>
-								<li><a href="grid-sidebar-left.html">View All Users</a></li>
+								<li><a href="{{ route('users') }}">View All Users</a></li>
 								<li><a href="{{ route('class_display') }}">Add A New Class</a></li>
 								<li><a href="{{ route('subject_form') }}">Add A New Subject</a></li>
 							</ul>
@@ -101,7 +101,18 @@
 								<li><a href="{{ route('all_calander') }}">Terms and Sessions</a></li>
 							</ul>
 						</li>
-						@elseif(Role::isTeacher())
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+								<span>Classes</span></a>
+							<ul class="dropdown-menu dropdownhover-bottom" role="menu">
+								@if($classes = \App\Classes::all())
+								@foreach($classes as $class)
+								<li><a href="{{ route('attendance_register', ['class_id'=> $class->id]) }}">{{ $class->class }}</a></li>
+								@endforeach
+								@endif
+							</ul>
+						</li>
+						@elseif(Role::isTeacher() || Role::isHOD())
 							<li><a href="{{ route('home') }}">Biodata</a></li>
 							<li class="dropdown">
 								<a href="#" data-toggle="dropdown" role="button" aria-expanded="false"><span>Dashboard</span></a>
@@ -109,6 +120,17 @@
 									<li><a href="{{ route('dashboard') }}">{{ __('Scoring') }}</a></li>
 								</ul>
 							</li>
+							<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+								<span>Classes</span></a>
+							<ul class="dropdown-menu dropdownhover-bottom" role="menu">
+								@if($classes = \App\Classes::all())
+								@foreach($classes as $class)
+								<li><a href="{{ route('attendance_register', ['class_id'=> $class->id]) }}">{{ $class->class }}</a></li>
+								@endforeach
+								@endif
+							</ul>
+						</li>
 							@elseif(Role::isStudent())
 							<li><a href="{{ route('home') }}">Biodata</a></li>
 							<li class="dropdown">

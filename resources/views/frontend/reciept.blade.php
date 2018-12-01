@@ -48,6 +48,10 @@
                                 <td class="text-left">{{ $payment->user->student->email }}</td>
                             </tr>
                             <tr>
+                                <td class="text-left">Term</td>
+                                <td class="text-left">{{ Calendar::term($payment->term) }}</td>
+                            </tr>
+                            <tr>
                                 <td class="text-left">Session</td>
                                 <td class="text-left">{{ $payment->session }}</td>
                             </tr>

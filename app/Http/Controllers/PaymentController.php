@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Setting;
 use App\Payment;
+use App\Calendar;
 
 class PaymentController extends Controller
 {
@@ -41,6 +42,7 @@ class PaymentController extends Controller
         $payment->name = $request['name'];
         $payment->session = (date('Y')-1). '/'.date('Y');
         $payment->status = 1;
+        $payment->term = Calendar::current_term()->id;
         $payment->user_id = $user->id;
         $payment->payment_id = 'ps00000'.substr(str_shuffle('123456789'), 2, 6).$user->id.date('is');
         $payment->save();

@@ -33,11 +33,11 @@ class HomeController extends Controller
             if(count($profile) == null) $new = true;
             else $new = false;
             return view('home', ['profile'=>$profile, 'new'=>$new]);
-        }elseif(Role::isTeacher()){
+        }elseif(Role::isTeacher() || Role::isHOD() || Role::isPrincipal()){
             $profile = Teacher::where('user_id',Auth::user()->id)->first();
             return view('frontend.teacher', ['profile'=>$profile]);
         }
-        else{
+        elseif(Role::isAdmin()){
             $profile = Setting::find(1);
             return view('backend.admin', ['profile'=>$profile]);
         }

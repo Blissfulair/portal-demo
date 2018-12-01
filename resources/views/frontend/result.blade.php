@@ -1,8 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mt-20">
-        <div class="row border">
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-3">
+                @include('includes.sidemenu')
+            </div>
+            <div class="col-md-9">
+            <div class="row border">
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-2 col-md-offset-5">
@@ -20,7 +26,6 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-center ps">Payment slip </p>
                     <div class="col-md-2 col-md-offset-1">
                         <div class="admin-logo">
                         @if($profile)
@@ -153,5 +158,8 @@
                     </div>
                 </div>
             </div>
+            </div>
+        </div>
+    </div>
     </div>
 @endsection
